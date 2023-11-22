@@ -1,25 +1,36 @@
 from openai import OpenAI
+import json
 
 key = ""
 client = OpenAI(api_key=key)
 
-#TODO maybe read these from a file?
-alternatives_for_questions = ["Who is the GOAT of male tennis?", "How to make lasagna?", "What is the most sold album in rock history?"]
+# Load dataset
+with open("dataset.json") as f:
+  dataset = json.load(f)
+datasize = len(dataset)
 
 answers = []
 
-for idx, q in enumerate(alternatives_for_questions):
+for idx, q in enumerate(dataset):
 
+  
   completion = client.chat.completions.create(
       model="gpt-3.5-turbo",
       messages=[
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": q}
+        {"role": "user", "content": q["question"]}
       ]
     )
 
-  answers.append(completion.choices[0].message.content)
-  print(completion.choices[0].message.content)
-  print(f"Progress made {int(100*(idx+1)/float(len(alternatives_for_questions)))}")
+  print(f"Progress: {int(100*(idx+1)/float(datasize))}%")
 
-#TODO record answers to file
+  #save pair GT/GPT answers
+  pair = {
+    q["answer"] : completion.choices[0].message.content
+  }
+  answers.append(pair)
+
+#save to file
+with open('results.json', 'w') as f:
+    json.dump(answers, f)
+

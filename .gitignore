@@ -1,3 +1,4 @@
 venv/
 .DS_Store
 gpt-client-local.py
+results.json
