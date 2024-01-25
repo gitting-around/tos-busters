@@ -6,7 +6,7 @@ import requests
 summariseFlag = True # set to true if you want to summarize the tos
 
 def split_text(input_text, pieces):
-    print(f"Splitting in {pieces}, length of input {len(input_text)}")
+    #print(f"Splitting in {pieces}, length of input {len(input_text)}")
     array_of_pieces = []
     r = int(len(input_text)/pieces)
 
@@ -17,7 +17,7 @@ def split_text(input_text, pieces):
     return array_of_pieces
 
 def summarise(input_text):
-    print("summarising")
+    #print("summarising")
     nr_splits = 2
     successful_split = False
     summarized = ""
@@ -79,7 +79,7 @@ def summarise(input_text):
                     else:
                         successful_split = True
 
-    print(f"Length of summary {len(summarized)}")
+    #print(f"Length of summary {len(summarized)}")
     return summarized
 
 def prepare_entry(product, tos_text, rubric):
@@ -107,7 +107,12 @@ def prepare_entry(product, tos_text, rubric):
     return entry, question
 
 if __name__ == '__main__':
-    dataset_path = 'dataset.json'
+    if len(sys.argv) == 2:
+        method = sys.argv[1]
+    else:
+        print("Too few/many inputs to the script. Run as $ python create_dataset.py chat_name")
+        sys.exit()
+    dataset_path = f'dataset-{method}.json'
     tos_dir = 'tos'
     dataset = []
     words = 0
@@ -116,7 +121,7 @@ if __name__ == '__main__':
     with open(products_path, 'r') as json_file:
         content = json.loads(json_file.read())
 
-    print(f"Length of content {len(content)}")
+    #print(f"Length of content {len(content)}")
 
     doesnt_exist = 0
     for i, product in enumerate(content):
@@ -142,10 +147,10 @@ if __name__ == '__main__':
                     words += len(question.split())
         else:
             doesnt_exist = doesnt_exist + 1
-            print(f"Skipped {i+1}")
+            #print(f"Skipped {i+1}")
 
     with open(dataset_path, 'w') as dataset_file:
         dataset_file.write(json.dumps(dataset))
-    print(f"Dataset length {len(dataset)}")
-    print(f"Doesn't exist {doesnt_exist}")
+    #print(f"Dataset length {len(dataset)}")
+    #print(f"Doesn't exist {doesnt_exist}")
     print(pairs, 'pairs,', words, 'words,', words * 1000 / 750, 'tokens')
