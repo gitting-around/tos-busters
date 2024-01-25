@@ -3,4 +3,6 @@ venv/
 gpt-client-local.py
 *-local*
 *results*
-products.json
+*.json
+tos/
+*.csv
