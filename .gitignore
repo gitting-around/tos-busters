@@ -1,7 +1,7 @@
-venv/
+venv*/
 .DS_Store
 gpt-client-local.py
-*-local*
+
 *results*
 *.json
 tos/

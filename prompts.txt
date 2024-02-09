@@ -1,0 +1,67 @@
+########## Prompt 1 ################################## Breaks with 18441 characters or more
+
+prompt = 'Hi!'
+
+def make_requests(input_text):
+  return requests.post(
+       'http://titan.maleci.ece.au.dk:8181/generate',
+       headers={
+           'Content-Type': 'application/json',
+       },
+       json={
+           'inputs': """
+        ### Instruction:
+        %s
+        ### Response:
+        """ % input_text,
+           'parameters': {
+               'max_new_tokens': 50,
+           },
+       }
+   )
+
+########## Prompt 2 Nous Hermes ##################################
+
+def make_requests(input_text):
+  return requests.post(
+       'http://titan.maleci.ece.au.dk:8181/generate',
+       headers={
+           'Content-Type': 'application/json',
+       },
+       json={
+           'inputs': """
+        <|im_start|>system 
+          You are a helpful chatbot. 
+        <|im_end|>
+        <|im_start|>user 
+          %s
+        <|im_end|>
+        <|im_start|>assistant 
+        
+        """ % input_text,
+           'parameters': {
+               'max_new_tokens': 50,
+           },
+       }
+   )
+
+########## Prompt 3 Mixtral-8x7B-v0.1 ################################## 
+def make_requests(input_text):
+  return requests.post(
+       'http://titan.maleci.ece.au.dk:8181/generate',
+       headers={
+           'Content-Type': 'application/json',
+       },
+       json={
+           'inputs': """
+        ### Instruction:
+        %s
+        ### Response:
+        """ % input_text,
+           'parameters': {
+               'max_new_tokens': 50,
+           },
+       }
+   )
+
+########## Prompt 4 ################################## 

@@ -4,6 +4,8 @@ import sys
 import requests
 
 summariseFlag = True # set to true if you want to summarize the tos
+min_len_break = 3514
+
 
 def split_text(input_text, pieces):
     #print(f"Splitting in {pieces}, length of input {len(input_text)}")
@@ -26,7 +28,7 @@ def summarise(input_text):
 
         array_of_pieces = split_text(input_text, nr_splits)
         count = 0
-        nr_chars = int(18441/(nr_splits+1))
+        nr_chars = int(min_len_break/(nr_splits+1))
 
         for piece in array_of_pieces:
             piece_summary = requests.post(
@@ -132,7 +134,7 @@ if __name__ == '__main__':
         if os.path.exists(product_tos_path):
             with open(product_tos_path, 'r') as tos_file:
                 tos_text = tos_file.read()
-            if summariseFlag and len(tos_text) > 18441: #this value has been evaluated empirically
+            if summariseFlag and len(tos_text) > min_len_break: #this value has been evaluated empirically
                 tos_text = summarise(tos_text)
                 for rubric in product['rubric']:
                     entry, question = prepare_entry(product, tos_text, rubric)
