@@ -24,6 +24,7 @@ def get_accuracy_over_datasets(r_dataset):
     nr_datasets = len(r_dataset)/nr_questions
     while idx < len(r_dataset):
         nr_matching = 0
+        no_answer = 0
         single_r_dataset = r_dataset[idx:idx+nr_questions] 
 
         for el in single_r_dataset:
@@ -34,6 +35,9 @@ def get_accuracy_over_datasets(r_dataset):
                     break
                 if key in val:
                     nr_matching = nr_matching + 1
+                else:
+                    no_answer = no_answer + 1
+                    print(f"No answer total: {no_answer}")
             if skipped:
                 skipped = False
                 nr_skipped = nr_skipped + 1
@@ -60,6 +64,7 @@ def get_accuracy_xquestion(r_dataset):
     while idx < nr_questions:
         nr_skipped = 0
         nr_matching = 0
+        no_answer = 0
         single_r_question = r_dataset[idx::nr_questions] 
 
         for el in single_r_question:
@@ -69,6 +74,10 @@ def get_accuracy_xquestion(r_dataset):
                     break
                 if key in val:
                     nr_matching = nr_matching + 1
+                else:
+                    no_answer = no_answer + 1
+                    print(f"No answer total: {no_answer}")
+
         #print(f"#matching {nr_matching}")
         #print(f"#skipped {nr_skipped}")
 
