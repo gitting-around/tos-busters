@@ -4,7 +4,7 @@ import sys
 import requests
 
 summariseFlag = True # set to true if you want to summarize the tos
-min_len_break = 3514
+min_len_break = 3730
 
 
 def split_text(input_text, pieces):
@@ -25,7 +25,8 @@ def summarise(input_text):
     summarized = ""
 
     while not successful_split:
-
+        if nr_splits > 30:
+            return input_text
         array_of_pieces = split_text(input_text, nr_splits)
         count = 0
         nr_chars = int(min_len_break/(nr_splits+1))
@@ -100,6 +101,7 @@ def prepare_entry(product, tos_text, rubric):
             ['%d- %s' % (option_index, option_text) for option_index, _, option_text in options]
         )
     )
+    question += 'Additionally provide the part of the text that contains the answer.\n'
     entry['question'] = question
     for option_index, option_id, _ in options:
         if option_id == rubric['option']['id']:

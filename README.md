@@ -24,3 +24,11 @@ If text is too big it will be split recursively until an adequate nr of splits i
 
 If ```statistics.csv``` does not exist, it will be created, a header and the values for random will be added, and thereafter the statistics for the chatbot used.
 If the file already exists, only one line (corresponding to the results for the chatbot used) will be added.
+
+### List of methods
+uncut-nousHermes
+Nous-Hermes-Llama2-13b
+Mixtral-8x7B-v0.1-Instruct
+Smaug-34B-v0.1
+gpt-3.5-turbo-0125
+gpt-4-turbo

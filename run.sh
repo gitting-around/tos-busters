@@ -15,7 +15,7 @@ echo Create dataset, summarising text that''s too big, with method
 time -p python create_dataset.py $method 
 
 echo Ask questions with method and collect results
-time -p python os-client-local.py $method 
+time -p python os_client_local.py $method 
 
 echo Calculate statistics for method
 time -p python compare_to_ground_truth.py $method 

@@ -1,4 +1,4 @@
-########## Prompt 1 ################################## Breaks with 18441 characters or more
+########## Prompt 1  Nous-Hermes-Llama2-13b ################################## Breaks with 18441 characters or more
 
 prompt = 'Hi!'
 
@@ -45,7 +45,7 @@ def make_requests(input_text):
        }
    )
 
-########## Prompt 3 Mixtral-8x7B-v0.1 ################################## 
+########## Prompt 3 Mixtral-8x7B-v0.1-Instruct ##################################  Breaks with 3730
 def make_requests(input_text):
   return requests.post(
        'http://titan.maleci.ece.au.dk:8181/generate',
@@ -64,4 +64,5 @@ def make_requests(input_text):
        }
    )
 
-########## Prompt 4 ################################## 
+########## Prompt 4 Smaug-34B-v0.1 ################################## 3730
+Same as Prompt 3
